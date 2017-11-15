@@ -1,11 +1,11 @@
 # breakout
 
-Jogo breakout feito em lua utilizando o corona para avaliação da disiplina de jogos do curso tecnico em informática do IFPE
+Jogo breakout feito em lua utilizando o corona SDK para avaliação da disiplina de jogos do curso tecnico em informática do IFPE
 
 -----
 Estorias
 
-Como jogador quero ver quais blocos ainda podem ser destruidos para destruilos, importância	5 de 5
+Como jogador quero ver quais blocos ainda podem ser destruidos para destruí los, importância	5 de 5
 
 Como jogador quero poder movimentar a plataforma para não deixar a bolinha cair, importância 5 de 5
 
