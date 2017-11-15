@@ -1,16 +1,14 @@
 local plataforma = display.newRect(display.contentCenterX, display.contentHeight-60, 75, 15)
 
 local function arrastar(event)
-	print(event.phase)
 	if event.phase == "began" then
 		display.getCurrentStage():setFocus(plataforma)
-		print(event.x)
 	elseif event.phase == "moved" then
 		if (plataforma.x - plataforma.width/2 > 0 and plataforma.x + plataforma.width/2 < display.contentWidth) and 
 			(event.x - plataforma.width/2 > 0 and event.x + plataforma.width/2 < display.contentWidth) then
 			plataforma.x = event.x
 		end
-	elseif event.phase == "ended" or event.phase == "canceled" then
+	elseif event.phase == "ended" or event.phase == "cancelled" then
 		display.getCurrentStage():setFocus( nil )
 		plataforma.isFocus = false
 	end
