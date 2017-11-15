@@ -3,7 +3,7 @@
 Jogo breakout feito em lua utilizando o corona SDK para avaliação da disiplina de jogos do curso tecnico em informática do IFPE
 
 -----
-Estorias
+Estórias
 
 Como jogador quero ver quais blocos ainda podem ser destruidos para destruí los, importância	5 de 5
 
