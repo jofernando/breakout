@@ -1,22 +1,18 @@
-plataforma = display.newRect(display.contentCenterX, display.contentHeight-60, 75, 15)
+local plataforma = display.newRect(display.contentCenterX, display.contentHeight-60, 75, 15)
 
 local function arrastar(event)
 	print(event.phase)
 	if event.phase == "began" then
-		local parent = plataforma.parent
-		parent:insert( plataforma )
 		display.getCurrentStage():setFocus(plataforma)
 		print(event.x)
 	elseif event.phase == "moved" then
-		print(event.x)
-		if plataforma.x-37.5>=0 and plataforma.x+37.5<=display.contentWidth then
-			print(event.phase)
+		if (plataforma.x - plataforma.width/2 > 0 and plataforma.x + plataforma.width/2 < display.contentWidth) and 
+			(event.x - plataforma.width/2 > 0 and event.x + plataforma.width/2 < display.contentWidth) then
 			plataforma.x = event.x
 		end
-	elseif "ended" == phase or "cancelled" == phase then
+	elseif event.phase == "ended" or event.phase == "canceled" then
 		display.getCurrentStage():setFocus( nil )
-		t:setStrokeColor( 1, 1, 1, 0 )
-		t.isFocus = false
+		plataforma.isFocus = false
 	end
 end
 
