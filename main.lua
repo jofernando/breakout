@@ -1,4 +1,8 @@
+local physics = require( "physics" )
+physics.start()
+
 local plataforma = display.newRect(display.contentCenterX, display.contentHeight-60, 75, 15)
+physics.addBody( plataforma, "static", { density=3.0, friction=0.5, bounce=1.2 } )
 
 local function arrastar(event)
 	if event.phase == "began" then
@@ -16,6 +20,12 @@ end
 
 plataforma:addEventListener("touch", arrastar)
 
+local function blocosListener(event)
+	timer.performWithDelay(5, function()
+        event.target:removeSelf()
+    end)
+end
+
 tabelas = {}
 local function desenharBlocos()
 	local y	= 0
@@ -26,6 +36,8 @@ local function desenharBlocos()
 			bloco.anchorX = 0
 			bloco.anchorY = 0
 			bloco:setFillColor(math.random(),math.random(),math.random())
+			physics.addBody( bloco, "static", { density=3.0, friction=0.5, bounce=1 } )
+			bloco:addEventListener( "postCollision", blocosListener )
 			table.insert(tabelas, bloco)
 			x = x + 64
 		end
@@ -33,6 +45,22 @@ local function desenharBlocos()
 	end
 end
 
-bolinha = display.newCircle(display.contentCenterX,display.contentCenterY, 7)
+cantos = {}
+local function desenharCantos()
+	local esquerda = display.newRect(-1,0,1,10000)
+	physics.addBody( esquerda, "static",{ density=3.0, friction=0.5, bounce=1 } )
+	local cima = display.newRect(0,0,10000,1)
+	cima.anxhorY=0
+	physics.addBody( cima, "static",{ density=3.0, friction=0.5, bounce=1 } )
+	local direita = display.newRect(display.contentWidth+1,0,1,10000)
+	physics.addBody( direita, "static",{ density=3.0, friction=0.5, bounce=1 } )
+	local baixo = display.newRect(0,display.contentHeight-1,10000,1)
+	physics.addBody( baixo, "static",{ density=3.0, friction=0.5, bounce=1 } )
+	display.anchorY=-100
+end
+
+bolinha = display.newCircle(display.contentCenterX,display.contentCenterY, 12)
+physics.addBody( bolinha, { density=3.0, friction=0.5, bounce=0.3, radius=12 } )
 
 desenharBlocos()
+desenharCantos()
