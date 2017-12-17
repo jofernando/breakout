@@ -9,7 +9,6 @@ local scene = composer.newScene()
 -- -----------------------------------------------------------------------------------
  
  local function jogo()
-    composer.removeScene("scenes.jogo")
     composer.gotoScene("scenes.jogo")
  end
  

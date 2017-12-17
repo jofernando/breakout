@@ -1,6 +1,20 @@
-local physics = require( "physics" )
+local composer = require("composer")
+composer.gotoScene("scenes.menu")
+
+--[[local physics = require( "physics" )
 physics.start()
 physics.setGravity(0,0)
+
+
+
+
+local function blocosListener(event)
+	timer.performWithDelay(1, event.target:removeSelf())
+end
+
+local function fundoListener( event )
+	event.other:setLinearVelocity(0,0)
+end
 
 cantos = {}
 local function desenharCantos()
@@ -16,6 +30,7 @@ local function desenharCantos()
 	local baixo = display.newRect(0,display.contentHeight,display.contentWidth*2,10)
 	baixo:setFillColor(0)
 	physics.addBody( baixo, "static" )
+	baixo:addEventListener("collision", fundoListener)
 end
 
 local function arrastar(event)
@@ -31,10 +46,6 @@ local function arrastar(event)
 		display.getCurrentStage():setFocus( nil )
 		plataforma.isFocus = false
 	end
-end
-
-local function blocosListener(event)
-	timer.performWithDelay(1, event.target:removeSelf())
 end
 
 tabelas = {}
@@ -56,10 +67,10 @@ local function desenharBlocos()
 	end
 end
 
---[[local function bolinhaListener(event)
+local function bolinhaListener(event)
 	local bolinha = event.target
 	bolinha:setLinearVelocity( 20, 20 )
-end]]
+end
 
 local plataforma = display.newRect(display.contentCenterX, display.contentHeight-60, 75, 15)
 physics.addBody( plataforma, "static" )
@@ -72,4 +83,4 @@ bolinha:setLinearVelocity( 150, 150 )
 --bolinha:applyForce(0,1,0,0)
 
 desenharBlocos()
-desenharCantos()
+desenharCantos()]]
