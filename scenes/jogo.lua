@@ -1,5 +1,8 @@
 local composer = require( "composer" )
 local physics = require( "physics" )
+local bola = require("objects.bola")
+local plataforma = require("objects.plataforma")
+local bloco = require("objects.bloco")
 physics.start()
 physics.setGravity(0,0)
 
@@ -47,6 +50,43 @@ function mudarCena()
     composer.gotoScene("scenes.gameover")
 end
 
+function iniciar(event)
+    bolinha:setLinearVelocity(160, -600)
+end
+
+function desenharBlocos(sceneGroup)
+    quantBlocos = 25
+    local y = 0
+    for i=1,5 do
+        local x = 0
+        for i=1,5 do
+            local bloco = bloco:criar(x,y,64,20)
+            sceneGroup:insert(bloco)
+            bloco.anchorX = 0
+            bloco.anchorY = 0
+            bloco:setFillColor(math.random(),math.random(),math.random())
+            physics.addBody( bloco, "static" )
+            bloco:addEventListener( "collision", blocosListener )
+            x = x + 64
+        end
+        y = y + 20
+    end
+end
+
+function desenharPlataforma(sceneGroup)
+    plataforma = plataforma:criar(display.contentCenterX, display.contentHeight-60, 45, 15)
+    sceneGroup:insert(plataforma)
+    physics.addBody( plataforma, "static" )
+    plataforma:addEventListener("touch", arrastar)
+end
+
+function desenharBola(sceneGroup)
+    bolinha = bola:criar(display.contentCenterX, plataforma.y, 12)
+    sceneGroup:insert(bolinha)
+    physics.addBody( bolinha, "dynamic", {density=0, friction=0, bounce=1, radius=12} )
+    timer.performWithDelay( 1000, iniciar)
+end
+
 -- -----------------------------------------------------------------------------------
 -- Scene event functions
 -- -----------------------------------------------------------------------------------
@@ -86,29 +126,10 @@ function scene:show( event )
     if ( phase == "will" ) then
         -- Code here runs when the scene is still off screen (but is about to come on screen)
 
-        quantBlocos = 25
-        local y = 0
-        for i=1,5 do
-            local x = 0
-            for i=1,5 do
-                local bloco = display.newRect(sceneGroup,x,y,64,20)
-                bloco.anchorX = 0
-                bloco.anchorY = 0
-                bloco:setFillColor(math.random(),math.random(),math.random())
-                physics.addBody( bloco, "static" )
-                bloco:addEventListener( "collision", blocosListener )
-                x = x + 64
-            end
-            y = y + 20
-        end
+        desenharBlocos(sceneGroup)
+        desenharPlataforma(sceneGroup)
+        desenharBola(sceneGroup)
 
-        plataforma = display.newRect(sceneGroup,display.contentCenterX, display.contentHeight-60, 75, 15)
-        physics.addBody( plataforma, "static" )
-        plataforma:addEventListener("touch", arrastar)
-
-        bolinha = display.newCircle(sceneGroup,display.contentCenterX,plataforma.y, 12)
-        physics.addBody( bolinha, "dynamic", {density=0, friction=0, bounce=1, radius=15} )
-        bolinha:setLinearVelocity( 10, -500 )
     elseif ( phase == "did" ) then
         -- Code here runs when the scene is entirely on screen
  

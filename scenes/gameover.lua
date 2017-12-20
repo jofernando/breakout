@@ -24,6 +24,28 @@ function scene:create( event )
     local sceneGroup = self.view
     -- Code here runs when the scene is first created but has not yet appeared on screen
  
+    local text = display.newText({
+        parent = sceneGroup,
+        text = "Game over",
+        x = display.contentCenterX,
+        y = 0
+    })
+    text.size = 60
+    text:setFillColor(0.2,0.7,1)
+    local botaoRestart = widget.newButton({
+        label = "Restart",
+        labelColor = {default = {0}, over={0}},
+        fillColor = {default = {1}, over = {0.7,0.8,0.9}},
+        strokeColor = {default = {0.2,0.5,0.9}, over = {0.4,0.1,0.9}},
+        strokeWidth = 8,
+        cornerRadius = 22,
+        x = display.contentCenterX,
+        y = display.contentCenterY,
+        shape = "roundedRect",
+        onPress = restart
+    })
+    sceneGroup:insert(botaoRestart)
+
 end
  
  
@@ -35,30 +57,6 @@ function scene:show( event )
  
     if ( phase == "will" ) then
         -- Code here runs when the scene is still off screen (but is about to come on screen)
-    
-    local text = display.newText({
-        parent = sceneGroup,
-        text = "Game over",
-        x = 0,
-        y = 0
-    })
-    text.anchorX = 0
-    text.anchorY = 0
-    text.size = 60
-    text:setFillColor(0.4,0.5,0.4)
-    local botaoRestart = widget.newButton({
-        label = "Restart",
-        labelColor = {default = {0}, over={0}},
-        fillColor = {default = {1}, over = {0.7,0.8,0.9}},
-        strokeColor = {default = {0.2,0.5,0.9}, over = {0.4,0.1,0.9}},
-        strokeWidth = 8,
-        cornerRadius = 22,
-        x = display.contentCenterX,
-        y = display.contentCenterY+90,
-        shape = "roundedRect",
-        onPress = restart
-    })
-    sceneGroup:insert(botaoRestart)
 
     elseif ( phase == "did" ) then
         -- Code here runs when the scene is entirely on screen
