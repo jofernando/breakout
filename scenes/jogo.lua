@@ -51,7 +51,7 @@ function mudarCena()
 end
 
 function iniciar(event)
-    bolinha:setLinearVelocity(160, -600)
+    bolinha:setLinearVelocity(600, -600)
 end
 
 function desenharBlocos(sceneGroup)
@@ -100,13 +100,13 @@ function scene:create( event )
     esquerda.anchorX=10
     physics.addBody( esquerda, "static" )
     local cima = display.newRect(0,0,display.contentWidth*2,10)
-    cima:setFillColor(1)
+    cima:setFillColor(0)
     physics.addBody( cima, "static" )
     local direita = display.newRect(display.contentWidth,0,10,display.contentHeight*2)
     direita.anchorX=0
     physics.addBody( direita, "static" )
     local baixo = display.newRect(0,display.contentHeight,display.contentWidth*2,10)
-    baixo:setFillColor(1)
+    baixo:setFillColor(0)
     physics.addBody( baixo, "static" )
     baixo:addEventListener("collision", fundoListener)
 

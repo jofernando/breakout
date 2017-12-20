@@ -35,7 +35,7 @@ function scene:show( event )
     if ( phase == "will" ) then
         -- Code here runs when the scene is still off screen (but is about to come on screen)
     local botaoIniciar = widget.newButton({
-        label = "Iniciar",
+        label = "Start",
         labelColor = {default = {0}, over={0}},
         fillColor = {default = {1}, over = {0.7,0.8,0.9}},
         strokeColor = {default = {0.2,0.5,0.9}, over = {0.4,0.1,0.9}},
